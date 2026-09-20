@@ -1,69 +1,38 @@
-const cells = document.querySelectorAll(".cell");
-const statusText = document.getElementById("status");
-const restartButton = document.getElementById("restart");
+let cart = [];
+let total = 0;
 
-let board = ["", "", "", "", "", "", "", "", ""];
-let currentPlayer = "X";
-let gameActive = true;
+function addToCart(productName, price) {
+  cart.push({ name: productName, price: price });
+  total += price;
 
-const winningCombinations = [
-  [0, 1, 2],
-  [3, 4, 5],
-  [6, 7, 8],
-  [0, 3, 6],
-  [1, 4, 7],
-  [2, 5, 8],
-  [0, 4, 8],
-  [2, 4, 6]
-];
+  updateCart();
+}
 
-function checkWinner() {
-  for (const [a, b, c] of winningCombinations) {
-    if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-      statusText.textContent = `Player ${board[a]} wins!`;
-      gameActive = false;
-      return;
-    }
-  }
+function updateCart() {
+  const cartItems = document.getElementById("cartItems");
+  const cartCount = document.getElementById("cartCount");
+  const totalElement = document.getElementById("total");
 
-  if (!board.includes("")) {
-    statusText.textContent = "It's a draw!";
-    gameActive = false;
+  cartItems.innerHTML = "";
+
+  cart.forEach((item) => {
+    const listItem = document.createElement("li");
+    listItem.textContent = `${item.name} - $${item.price}`;
+    cartItems.appendChild(listItem);
+  });
+
+  cartCount.textContent = cart.length;
+  totalElement.textContent = total;
+}
+
+document.getElementById("checkout").addEventListener("click", () => {
+  if (cart.length === 0) {
+    alert("Your cart is empty.");
     return;
   }
 
-  currentPlayer = currentPlayer === "X" ? "O" : "X";
-  statusText.textContent = `Player ${currentPlayer}'s turn`;
-}
-
-function handleCellClick(event) {
-  const cell = event.target;
-  const index = cell.dataset.index;
-
-  if (!gameActive || board[index] !== "") return;
-
-  board[index] = currentPlayer;
-  cell.textContent = currentPlayer;
-  cell.disabled = true;
-
-  checkWinner();
-}
-
-function restartGame() {
-  board = ["", "", "", "", "", "", "", "", ""];
-  currentPlayer = "X";
-  gameActive = true;
-
-  statusText.textContent = "Player X's turn";
-
-  cells.forEach((cell) => {
-    cell.textContent = "";
-    cell.disabled = false;
-  });
-}
-
-cells.forEach((cell) => {
-  cell.addEventListener("click", handleCellClick);
+  alert(`Order placed! Total: $${total}`);
+  cart = [];
+  total = 0;
+  updateCart();
 });
-
-restartButton.addEventListener("click", restartGame);

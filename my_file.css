@@ -4,66 +4,73 @@
 
 body {
   margin: 0;
-  min-height: 100vh;
-  display: grid;
-  place-items: center;
   font-family: Arial, sans-serif;
-  background: #1f2937;
+  background: #f4f4f4;
+  color: #222;
+}
+
+header {
+  background: #2563eb;
   color: white;
+  padding: 15px 8%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.game {
-  width: min(90vw, 420px);
-  text-align: center;
+header h1 {
+  margin: 0;
 }
 
-h1 {
-  margin-bottom: 12px;
-  color: yellow; /* Change this to any heading color */
-}
-
-#status {
-  min-height: 28px;
-  font-size: 1.2rem;
-  margin-bottom: 18px;
-}
-
-.board {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-}
-
-.cell {
-  aspect-ratio: 1;
+header button,
+.product button,
+#checkout {
   border: 0;
-  border-radius: 12px;
-  background: #374151;
-  color: white;
-  font-size: clamp(2rem, 10vw, 4rem);
-  font-weight: bold;
+  border-radius: 6px;
+  padding: 10px 14px;
   cursor: pointer;
-}
-
-.cell:hover:not(:disabled) {
-  background: #4b5563;
-}
-
-.cell:disabled {
-  cursor: default;
-}
-
-#restart {
-  margin-top: 22px;
-  padding: 12px 20px;
-  border: 0;
-  border-radius: 8px;
-  background: #22c55e;
-  color: white;
   font-size: 1rem;
-  cursor: pointer;
 }
 
-#restart:hover {
+header button {
+  background: white;
+  color: #2563eb;
+}
+
+main {
+  max-width: 1100px;
+  margin: auto;
+  padding: 25px;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.product {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 2px 8px #0002;
+}
+
+.product img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.product button,
+#checkout {
   background: #16a34a;
+  color: white;
+}
+
+#cart {
+  background: white;
+  padding: 20px;
+  margin-top: 30px;
+  border-radius: 10px;
 }
